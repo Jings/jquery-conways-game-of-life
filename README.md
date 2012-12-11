@@ -1,4 +1,4 @@
-jquery-conways-game-of-life
+Conways's Game of Life in jQuery
 ===========================
 
 Conway's Game of Life
