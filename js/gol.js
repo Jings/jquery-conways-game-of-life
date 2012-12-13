@@ -1,10 +1,10 @@
-var dimension = 60;
+var dimension = 51;
 var chanceOfLiveCells = 0.83;
 var table;
 var cells;
 var timer;
 var livingCells;
-var iteration = 80; //milliseconds
+var iteration = 3; //milliseconds
 
 (function() {
     table = $('#main');
@@ -16,6 +16,7 @@ var iteration = 80; //milliseconds
     var reset = $("#reset");
     var step = $("#step");
     var cell = $("td");
+    var pattern1 = $("#pattern1");
 
     random.click(function(){
         placeRandomCells();
@@ -32,6 +33,13 @@ var iteration = 80; //milliseconds
     step.click(function(){
         stepForward();
     });
+    pattern1.click(function(){
+        setCellAlive(24, 24); setCellAlive(24, 23); setCellAlive(24, 22);
+        setCellAlive(25, 22); setCellAlive(26, 22); setCellAlive(26, 23);
+        setCellAlive(26, 24); setCellAlive(24, 26); setCellAlive(24, 27);
+        setCellAlive(24, 28); setCellAlive(25, 28); setCellAlive(26, 28);
+        setCellAlive(26, 27); setCellAlive(26, 26);
+    });
 
     cell.click(function() {
         toggleCell($(this));
@@ -39,6 +47,9 @@ var iteration = 80; //milliseconds
 })();
 
 function playGame () {
+    var state = $("#state");
+    state.html('Running...');
+    state.css('color', '#00FF00');
     prepareNextGeneration();
     renderNextGeneration();
 
@@ -46,7 +57,15 @@ function playGame () {
 }
 
 function stopGame () {
+    var state = $("#state");
+    state.html('Stopped...');
+    state.css('color', '#FF0000');
     clearTimeout(timer);
+}
+
+function setCellAlive (x, y) {
+        var cell = getCell(x, y);
+        cell.addClass('alive');
 }
 
 function stepForward () {
